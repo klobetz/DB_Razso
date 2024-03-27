@@ -1,0 +1,16 @@
+﻿@using Microsoft.AspNetCore.Components.QuickGrid
+@inject BlazorApp_DB_Entity.Data.MySql_DB_Context UserDB
+@using BlazorApp_DB_Entity.Modell
+
+@page "/userhome"
+
+<h3>User Index</h3>
+
+
+
+<QuickGrid Class="table" Items="UserDB.User">
+    <PropertyColumn Title="Id:" Property="userid=>userid.Id"/>
+    <PropertyColumn Title="Név:" Property="username=>username.Name"/>
+    <PropertyColumn Title="E-mail:" Property="useremail=>useremail.Email"/>
+    <PropertyColumn Title="Jelszó:" Property="userpassword=>userpassword.Password"/>
+</QuickGrid>

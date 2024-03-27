@@ -7,7 +7,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+//quickGrig service
+builder.Services.AddQuickGridEntityFrameworkAdapter();
 
+//a kapcsolat regisztrálása a koténerbe és a connectionstrin használata kiegészítve egy ellenõrzéssel
+// ?? throw new InvalidOperationException
 builder.Services.AddDbContext<MySql_DB_Context>(options =>
 options.UseMySQL(builder.Configuration.GetConnectionString("BlazorAppDBContext")
     ?? throw new InvalidOperationException("Hiba a betöltés folyamán nincs: BlazorAppDBContext")));
