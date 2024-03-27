@@ -9,7 +9,8 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddDbContext<MySql_DB_Context>(options =>
-options.UseMySQL(builder.Configuration.GetConnectionString("BlazorAppDBContext")));
+options.UseMySQL(builder.Configuration.GetConnectionString("BlazorAppDBContext")
+    ?? throw new InvalidOperationException("Hiba a betöltés folyamán nincs: BlazorAppDBContext")));
 
 var app = builder.Build();
 
