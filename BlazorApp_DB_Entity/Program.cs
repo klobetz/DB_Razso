@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-//quickGrig service
+//QuickGrid service regisztrálása
 builder.Services.AddQuickGridEntityFrameworkAdapter();
 
 //a kapcsolat regisztrálása a koténerbe és a connectionstrin használata kiegészítve egy ellenõrzéssel
