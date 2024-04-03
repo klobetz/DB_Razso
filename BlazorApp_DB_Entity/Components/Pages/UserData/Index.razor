@@ -7,7 +7,7 @@
 
 <h3>User Index</h3>
 
-
+<a href="/usercreate" class="btn btn-primary">Create a new user</a>
 
 <QuickGrid Class="table" Items="UserDB.User">
     <PropertyColumn Title="Id:" Property="userid=>userid.Id"/>
@@ -38,6 +38,7 @@
         }
     </tbody>
 </table>
+
 <div class="card-container">
     @foreach (var item in UserDB.User)
     {
