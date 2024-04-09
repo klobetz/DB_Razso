@@ -1,5 +1,6 @@
 ﻿@page "/usercreate"
 @using BlazorApp_DB_Entity.Modell
+@using NetcodeHub.Packages.Components.Validations.OnInput
 @inject BlazorApp_DB_Entity.Data.MySql_DB_Context DB
 @inject NavigationManager NavigationManager
 @rendermode InteractiveServer
@@ -14,7 +15,7 @@
             <ValidationSummary class="text-danger" />
             <div class="mb-3">
                 <label for="name" class="form-label">Név</label>
-                <InputText id="name" class="form-control" @bind-Value="UserDB.Name"/>
+                <InputText id="name" class="form-control" @bind-Value="UserDB.Name" />
                 <ValidationMessage For="()=>UserDB.Name" class="text-danger" />
             </div>
              <div class="mb-3">
@@ -22,9 +23,8 @@
                 <InputText id="email" class="form-control" @bind-Value="UserDB.Email"/>
                 <ValidationMessage For="()=>UserDB.Email" class="text-danger" />
             </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Jelszó</label>
-                <InputText id="password" class="form-control" @bind-Value="UserDB.Password" />
+            <div class="mb-3">               
+                <FloatingText id="password" class="form-control" @bind-Value="UserDB.Password" Label="Jelszó:"/>
                 <ValidationMessage For="()=>UserDB.Password" class="text-danger" />
             </div>
 
