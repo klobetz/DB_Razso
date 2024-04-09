@@ -1,0 +1,60 @@
+﻿@page "/userdelete"
+@using BlazorApp_DB_Entity.Modell
+@using Microsoft.EntityFrameworkCore
+@inject BlazorApp_DB_Entity.Data.MySql_DB_Context DBUser
+@inject NavigationManager NavManagger
+
+<h3>Delete</h3>
+<hr />
+
+<div>
+    @if (user is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <dl class="row">
+            <dt class="col-sm-2">Név:</dt>
+            <dd class="col-sm-8">@user.Name</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">Email::</dt>
+            <dd class="col-sm-8">@user.Email</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">Jelszó:</dt>
+            <dd class="col-sm-8">@user.Password</dd>
+        </dl>
+        <EditForm method="post" Model="user" OnValidSubmit="DeleteUser" FormName="Delete" Enhance> 
+            <button type="submit" class="btn btn-danger" disabled="@(user is null)">Delete</button>
+            <a href="/userhome" class="btn btn-primary">Back to Users List</a>
+        </EditForm>
+
+    }
+</div>
+
+@code {
+    User? user;
+    //vagy
+    //public User user = new();
+
+    [SupplyParameterFromQuery]
+    public int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await DBUser.User.FirstOrDefaultAsync(x => x.Id == Id);
+
+        if (user is null)
+        {
+            NavManagger.NavigateTo("/Error");
+        }
+    }
+    public async Task DeleteUser()
+    {
+        DBUser.User.Remove(user);
+        await DBUser.SaveChangesAsync();
+        NavManagger.NavigateTo("/userhome");
+    }
+}

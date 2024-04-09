@@ -24,7 +24,7 @@
                 <ValidationMessage For="()=>UserDB.Email" class="text-danger" />
             </div>
             <div class="mb-3">               
-                <FloatingText id="password" class="form-control" @bind-Value="UserDB.Password" Label="Jelszó:"/>
+                <FloatingText id="password" Type="password" class="form-control" @bind-Value="UserDB.Password" Label="Jelszó:"/>
                 <ValidationMessage For="()=>UserDB.Password" class="text-danger" />
             </div>
 

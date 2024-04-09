@@ -13,6 +13,11 @@
     <PropertyColumn Title="Név:" Property="username=>username.Name"/>
     <PropertyColumn Title="E-mail:" Property="useremail=>useremail.Email"/>
     <PropertyColumn Title="Jelszó:" Property="userpassword=>userpassword.Password"/>
+
+    <TemplateColumn Context="user" Title="Szerkesztés">
+        <a href="@($"useredit?Id={user.Id}")" class="btn btn-info">Edit</a>
+        <a href="@($"userdelete?Id={user.Id}")" class="btn btn-danger">Delete</a>
+    </TemplateColumn>
 </QuickGrid>
 
 
@@ -23,6 +28,8 @@
             <th>Név</th>
             <th>E-mail</th>
             <th>Jelszó</th>
+            <th>Szerkesztés</th>
+            
         </tr>
     </thead>
     <tbody>
@@ -33,6 +40,11 @@
                 <td>@item.Name</td>
                 <td>@item.Email</td>
                 <td>@item.Password</td>
+                <td>
+                    <a href="@($"useredit?Id={item.Id}")" class="btn btn-info">Edit</a>
+                    <a href="@($"userdelete?Id={item.Id}")" class="btn btn-danger">Delete</a>
+                </td>
+                
             </tr>
         }
     </tbody>
