@@ -1,8 +1,73 @@
 ﻿@page "/useredit"
+@using BlazorApp_DB_Entity.Modell
+@using Microsoft.EntityFrameworkCore
+@using NetcodeHub.Packages.Components.Validations.OnInput
+@inject BlazorApp_DB_Entity.Data.MySql_DB_Context DB
+@inject NavigationManager NavManager
+@rendermode InteractiveServer
 
 <h3>Edit</h3>
 <hr />
+<div>
+    @if (edituser is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md4">
+                <EditForm method="post" Model="edituser" OnValidSubmit="UpdateUser" FormName="Edit" Enhance>
+                    <DataAnnotationsValidator/>
+                    <ValidationSummary class="text-danger"/>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Név:</label>
+                        <InputText id="name" @bind-Value="edituser.Name" class="form-control"/>
+                        <ValidationMessage For="()=>edituser.Name" class="text-danger"/>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">E-mail:</label>
+                        <InputText id="email" @bind-Value="edituser.Email" class="form-control"/>
+                        <ValidationMessage For="()=>edituser.Email" class="text-danger"/>
+                    </div>
+                    <div class="mb-3">                        
+                        <FloatingText id="name" Label="Jelszó:" @bind-Value="edituser.Password" class="form-control" />
+                        <ValidationMessage For="()=>edituser.Password" class="text-danger" />
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <a href="/userhome" class="btn btn-primary">Back to User List</a>
+                </EditForm>
+            </div>
+        </div>
+    }
+</div>
+    
+
 
 @code {
+    [SupplyParameterFromQuery]
+    public int Id { get; set; }
+
+    [SupplyParameterFromForm]
+    public User? edituser { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        edituser = await DB.User.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if(edituser is null)
+        {
+            NavManager.NavigateTo("/Error");
+        }
+    }
+
+    public async Task UpdateUser()
+    {
+        DB.User.Update(edituser);
+        await DB.SaveChangesAsync();
+        NavManager.NavigateTo("/userhome");
+    }
+
 
 }
