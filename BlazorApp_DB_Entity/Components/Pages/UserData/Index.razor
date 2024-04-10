@@ -2,6 +2,7 @@
 @using Microsoft.AspNetCore.Components.QuickGrid
 @inject BlazorApp_DB_Entity.Data.MySql_DB_Context UserDB
 @using BlazorApp_DB_Entity.Modell
+@rendermode InteractiveServer
 
 <h3>User Index</h3>
 <hr />
@@ -10,9 +11,9 @@
 
 <QuickGrid Class="table" Items="UserDB.User">
     <PropertyColumn Title="Id:" Property="userid=>userid.Id"/>
-    <PropertyColumn Title="Név:" Property="username=>username.Name"/>
-    <PropertyColumn Title="E-mail:" Property="useremail=>useremail.Email"/>
-    <PropertyColumn Title="Jelszó:" Property="userpassword=>userpassword.Password"/>
+    <PropertyColumn Title="Név:" Property="username=>username.Name" Sortable="true"/>
+    <PropertyColumn Title="E-mail:" Property="useremail=>useremail.Email" Sortable="true"/>
+    <PropertyColumn Title="Jelszó:" Property="userpassword=>userpassword.Password" Sortable="true"/>
 
     <TemplateColumn Context="user" Title="Szerkesztés">
         <a href="@($"useredit?Id={user.Id}")" class="btn btn-info">Edit</a>

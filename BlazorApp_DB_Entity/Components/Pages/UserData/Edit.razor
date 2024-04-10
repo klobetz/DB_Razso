@@ -47,14 +47,14 @@
 
 @code {
     [SupplyParameterFromQuery]
-    public int Id { get; set; }
+    public int id { get; set; }
 
     [SupplyParameterFromForm]
     public User? edituser { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        edituser = await DB.User.FirstOrDefaultAsync(m => m.Id == Id);
+        edituser = await DB.User.FirstOrDefaultAsync(m => m.Id == id);
 
         if(edituser is null)
         {
@@ -64,9 +64,36 @@
 
     public async Task UpdateUser()
     {
-        DB.User.Update(edituser);
-        await DB.SaveChangesAsync();
+        //ez egyből létrehozza az sql utasítást és és közvetlenül az Update metódust használja 
+        // ami az entitás állapotát azonnal módosítottnak jelöli
+
+        // DB.User.Update(edituser);
+        // await DB.SaveChangesAsync();
+        // NavManager.NavigateTo("/userhome");
+
+        //külön kezeli az contectet és a állapot módosítását
+        DB.Attach(edituser).State = EntityState.Modified;
+
+        try
+        {
+            DB.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!UserExceptin(edituser.Id))
+            {
+                NavManager.NavigateTo("/Error");
+            }            
+            else
+            {
+                throw;
+            }            
+        }
         NavManager.NavigateTo("/userhome");
+    }
+    bool UserExceptin(int id)
+    {
+        return DB.User.Any(x => x.Id == id);
     }
 
 
