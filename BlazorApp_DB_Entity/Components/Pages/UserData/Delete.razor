@@ -2,7 +2,7 @@
 @using BlazorApp_DB_Entity.Modell
 @using Microsoft.EntityFrameworkCore
 @inject BlazorApp_DB_Entity.Data.MySql_DB_Context DBUser
-@inject NavigationManager NavManagger
+@inject NavigationManager NavManager
 
 <h3>Delete</h3>
 <hr />
@@ -48,13 +48,13 @@
 
         if (user is null)
         {
-            NavManagger.NavigateTo("/Error");
+            NavManager.NavigateTo("/Error");
         }
     }
     public async Task DeleteUser()
     {
         DBUser.User.Remove(user);
         await DBUser.SaveChangesAsync();
-        NavManagger.NavigateTo("/userhome");
+        NavManager.NavigateTo("/userhome");
     }
 }
