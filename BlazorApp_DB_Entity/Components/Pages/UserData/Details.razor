@@ -1,0 +1,47 @@
+﻿@page "/userdetails"
+@using BlazorApp_DB_Entity.Modell
+@using Microsoft.EntityFrameworkCore
+@inject BlazorApp_DB_Entity.Data.MySql_DB_Context DB
+@inject NavigationManager NavManager
+
+<h3>Details</h3>
+<hr />
+
+<div>
+    @if (user is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <dl class="row">
+            <dt class="col-sm-2">Név:</dt>
+            <dd class="col-sm-8">@user.Name</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">Email::</dt>
+            <dd class="col-sm-8">@user.Email</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">Jelszó:</dt>
+            <dd class="col-sm-8">@user.Password</dd>
+        </dl>
+
+
+        <a href="@($"useredit?Id={user.Id}")" class="btn btn-info">Edit</a>
+        <a href="/userhome" class="btn btn-primary">Back to Users List</a>
+        
+    }
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    public int Id { get; set; }
+
+    User? user;
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await DB.User.FirstOrDefaultAsync(m=>m.Id==Id);
+    }
+}

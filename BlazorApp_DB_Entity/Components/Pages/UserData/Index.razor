@@ -18,6 +18,7 @@
     <TemplateColumn Context="user" Title="Szerkesztés">
         <a href="@($"useredit?Id={user.Id}")" class="btn btn-info">Edit</a>
         <a href="@($"userdelete?Id={user.Id}")" class="btn btn-danger">Delete</a>
+        <a href="@($"userdetails?Id={user.Id}")" class="btn btn-success">Details</a>
     </TemplateColumn>
 </QuickGrid>
 
@@ -44,6 +45,7 @@
                 <td>
                     <a href="@($"useredit?Id={item.Id}")" class="btn btn-info">Edit</a>
                     <a href="@($"userdelete?Id={item.Id}")" class="btn btn-danger">Delete</a>
+                    <a href="@($"userdetails?Id={item.Id}")" class="btn btn-success">Details</a>
                 </td>
                 
             </tr>
