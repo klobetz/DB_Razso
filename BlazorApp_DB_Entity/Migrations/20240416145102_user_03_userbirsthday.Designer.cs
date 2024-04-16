@@ -3,6 +3,7 @@ using System;
 using BlazorApp_DB_Entity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlazorApp_DB_Entity.Migrations
 {
     [DbContext(typeof(MySql_DB_Context))]
-    partial class MySql_DB_ContextModelSnapshot : ModelSnapshot
+    [Migration("20240416145102_user_03_userbirsthday")]
+    partial class user_03_userbirsthday
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,8 +28,7 @@ namespace BlazorApp_DB_Entity.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("BirsthDay")
-                        .IsRequired()
+                    b.Property<DateTime>("BirsthDay")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Email")

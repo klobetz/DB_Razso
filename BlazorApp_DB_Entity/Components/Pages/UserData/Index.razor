@@ -14,6 +14,7 @@
     <PropertyColumn Title="Név:" Property="username=>username.Name" Sortable="true"/>
     <PropertyColumn Title="E-mail:" Property="useremail=>useremail.Email" Sortable="true"/>
     <PropertyColumn Title="Jelszó:" Property="userpassword=>userpassword.Password" Sortable="true"/>
+    <PropertyColumn Title="Szültés nap:" Property="x=>x.BirsthDay.ToShortDateString()" Sortable="true"/>
 
     <TemplateColumn Context="user" Title="Szerkesztés">
         <a href="@($"useredit?Id={user.Id}")" class="btn btn-info">Edit</a>
